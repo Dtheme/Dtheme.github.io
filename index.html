@@ -1,129 +1,374 @@
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title></title>
-<link rel="stylesheet" href="https://Dtheme.github.io/styles/main.css">
-<script src="https://Dtheme.github.io/media/script.js"></script>
+<!DOCTYPE html>
+<html>
+<head lang="zh">
+  <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="black" name="apple-mobile-web-app-status-bar-style"/>
+<meta content="telephone=no" name="format-detection"/>
+<meta name="renderer" content="webkit">
+<meta name="description" content="他山之石可以攻玉">
+<meta http-equiv="Access-Control-Allow-Origin" content="*">
 
-    
+<title>像物像欲又像疯</title>
+<link href="https://Dtheme.github.io/styles/main.css" type="text/css" rel="stylesheet"/>
+<link rel="stylesheet" href="//cdn.bootcss.com/KaTeX/0.10.2/katex.min.css"/>
+<script src="//cdn.bootcss.com/KaTeX/0.10.2/katex.min.js"></script>
+<script src="//cdn.bootcss.com/KaTeX/0.10.2/contrib/auto-render.min.js"></script>
+<script type="text/javascript" src="https://Dtheme.github.io/media/scripts/jquery.js"></script>
+<script type="text/javascript" src="https://Dtheme.github.io/media/scripts/jquery.pjax.min.js"></script>
+<script type="text/javascript" src="https://Dtheme.github.io/media/scripts/basic.js"></script>
+<script type="text/javascript" src="//cdn.bootcss.com/gitalk/1.5.0/gitalk.min.js"></script>
+<script src="//cdn.bootcss.com/highlight.js/9.15.10/highlight.min.js"></script>
+<script async type="text/javascript" src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+<script async type="text/javascript" src="https://Dtheme.github.io/media/scripts/search.js"></script>
+<script type="text/javascript">
+$(document).pjax('a[target!=_blank]', '#pjax-container', {
+	fragment: '#pjax-container',
+	timeout: 5000,
+	cache: false
+});
+$(document).on('pjax:complete', function(){  	
+	pjax();
+});
 
-</head>
-<body>
-  <div class="antialiased">
-    <div class="max-w-5xl mx-auto px-6 md:px-8">
-      <div class="flex justify-between items-center mt-10">
-  <h1 class="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-900 font-medium md:font-normal leading-none">
-    <a href="https://Dtheme.github.io">像物像欲又像疯</a>
-  </h1>
-  <div class="block lg:hidden" id="thumb-menu">
-    <button id="thumb-open" type="button" class="block">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 6H22V7H2V6ZM2 12H22V13H2V12ZM22 18H2V19H22V18Z" class="fill-current text-gray-900"></path></svg>
-    </button>
-    <button id="thumb-close" type="button" class="hidden">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M4 4L20 20M20 4L4 20" class="" stroke="#1A202C"></path></svg>
-    </button>
-  </div>
+$(window).on('popstate.pjax', function () {
+	pjax();
+})
+
+function pjax() {
+	$.getScript("//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js");
+
+	if (("#gitalk-container").length > 0 ) {
+	$('#mememe').attr('src','//source.unsplash.com/800x400/?arts,weather?'+Math.random());
+	$.getScript("//cdn.bootcss.com/KaTeX/0.10.2/katex.min.js");
+	$.getScript("//cdn.bootcss.com/KaTeX/0.10.2/contrib/auto-render.min.js");
+	$('pre code').each(function(i, block) {
+        hljs.highlightBlock(block);
+    	});
+	}
+}
+</script>
+
+  </head>
+
+  <body>
+    <div class="header">
+      <div class="logo_title">
+		  
+        <div class="title animated fadeInDown"><img id="img1" style="display:inline-block;" src="https://Dtheme.github.io/images/avatar.png"/>
+<script>
+var r = 0;
+    window.onload = function(){
+        var current = 0;
+        document.getElementById('img1').onclick = function(){
+            current = (current+90)%360;
+            this.style.transform = 'rotate('+current+'deg)';
+        }
+    };
+</script>
+          <h1 title="像物像欲又像疯" class="weaklink"><a  href="/">像物像欲又像疯</a>
+
+          </h1>
+
+          <div class="navbar weaklink">
+            <div class="normal_nav">
+
+<div class="bitcron_nav_container">
+
+
+  <div class="bitcron_nav">
+    <div class="mixed_site_nav_wrap site_nav_wrap">
+		
+      <ul class="mixed_site_nav site_nav sm sm-base">
+	  
+ 
+  <li><a id="d2ef19af68cc211e98f8a0242ac110003" href="/" class="selected active current nav__item" >首页</a>
+  </li>
+  
+ 
+  <li><a id="d2ef19af68cc211e98f8a0242ac110003" href="/archives" class="selected active current nav__item" >归档</a>
+  </li>
+  
+ 
+  <li><a id="d2ef19af68cc211e98f8a0242ac110003" href="/tags" class="selected active current nav__item" >标签</a>
+  </li>
+  
+ 
+  <li><a id="d2ef19af68cc211e98f8a0242ac110003" href="/post/about" class="selected active current nav__item" >关于</a>
+  </li>
+  
+ 
+ <li>
+
+      </ul>
+	  
+
+      <div class="clear clear_nav_inline_end"></div>
+<div class="search">
+    <i class="search-icon fa fa-search search-start"></i>
+    <input type="text" class="search-input" placeholder="Searching..." />
+    <i class="search-icon fa fa-refresh search-clear"></i>
+	<div class="search-results"></div>
 </div>
-<div id="nav-list" class="lg:block hidden">
-  <div class="w-full block lg:flex lg:justify-between lg:border-b lg:border-gray-400 mt-10 text-gray-700 font-medium lg:text-lg">
-    <div class="lg:flex -mb-px">
-      
-        
-          <a href="/" class="nav-link">首页</a>
-        
-      
-        
-          <a href="/archives" class="nav-link">归档</a>
-        
-      
-        
-          <a href="/tags" class="nav-link">标签</a>
-        
-      
-        
-          <a href="/post/about" class="nav-link">关于</a>
-        
-      
     </div>
-    <div class="lg:flex">
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-        
-      
-      <a href="https://Dtheme.github.io/atom.xml" class="block mt-6 lg:mt-0 lg:ml-8 flex align-center hover:text-gray-900" target="_blank">
-        <div>RSS</div>
-        <svg width="25" height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg" class="ml-1 -mt-px"><path d="M16.5 13V18.5H6.5V8.5H12" stroke="#4A5568"></path> <path d="M10 15L18.5 6.5" stroke="#4A5568"></path> <path d="M14 6.5H18.5V11" stroke="#4A5568"></path></svg>
-      </a>
-    </div>
+
   </div>
+
+
+
+  <div class="clear clear_nav_end"></div>
+
 </div>
-      
-        <div class="pt-10 md:py-6 flex items-start">
-          <img class="w-24 h-24 md:w-32 md:h-32 rounded-full mx-8 block flex-shrink-0" src="https://Dtheme.github.io/images/avatar.png?v=1570692740040" alt="">
-          <div class="text-lg sm:text-xl lg:text-2xl text-gray-700">
-            他山之石可以攻玉
-          </div>
-        </div>
-      
-      <div class="mb-20 md:flex mt-10 lg:mt-6 md:border-t md:border-gray-400 md:pt-2 lg:border-t-0 lg:pt-0">
-        <div class="w-full md:w-2/3">
-  <div class="mt-6 lg:mt-10 border-b border-gray-400">
-    
-      <div class="border-t border-gray-400 py-6 sm:py-8 lg:py-10">
-        <div class="md:flex items-center justify-between">
-          <div>
-            <h3 class="text-gray-900 sm:text-lg lg:text-xl">
-              <a href="https://Dtheme.github.io/post/about" class="hover:underline">关于</a>
-            </h3>
-            <div class="flex flex-wrap text-gray-700 text-sm sm:text-base lg:text-lg mt-2 sm:mt-3 lg:mt-3">
-                
-              
-              <div class="mx-2 text-gray-500">•</div>
-              <div>2019-10-10</div>
-              <div class="mx-2 text-gray-500">•</div>
-              <div>1 min read</div>
+
             </div>
+			
+			<div class="hamberger"><i class="fa fa-bars"></i>
+<i class="fa fa-times"></i>
+
+			</div>
+
           </div>
-          
+
         </div>
+
       </div>
-    
-  </div>
-  <div class="mt-6 flex justify-between">
-    
-    
-  </div>
-</div>
-        <div class="w-full md:w-1/3 md:pl-8">
-          <div class="text-base font-thin text-gray-700 mb-2 mt-6 md:mt-8">标签云</div>
-          <div>
-            
-          </div>
-        </div>
-      </div>
-      <div class="footer border-gray-400 border-t pt-6 mt-6 sm:mt-8 md:mt-10 mb-20 text-gray-700 text-sm sm:text-base lg:text-lg">
-  Copyright © 2019 zw.Duan
-</div>
+
+      <div class="hidden_nav animated fadeInDown">
+
+<div class="bitcron_nav_container">
+
+
+  <div class="bitcron_nav">
+    <div class="mixed_site_nav_wrap site_nav_wrap">
+      <ul class="mixed_site_nav site_nav sm sm-base">
+	
+  <li><a id="d2ef19af68cc211e98f8a0242ac110003" href="/" class="selected active current nav__item" >首页</a>
+
+  </li>
+
+
+  <li><a id="d2ef19af68cc211e98f8a0242ac110003" href="/archives" class="selected active current nav__item" >归档</a>
+
+  </li>
+
+
+  <li><a id="d2ef19af68cc211e98f8a0242ac110003" href="/tags" class="selected active current nav__item" >标签</a>
+
+  </li>
+
+
+  <li><a id="d2ef19af68cc211e98f8a0242ac110003" href="/post/about" class="selected active current nav__item" >关于</a>
+
+  </li>
+
+
+
+
+      </ul>
+
+      <div class="clear clear_nav_inline_end"></div>
     </div>
+
   </div>
+
+
+
+  <div class="clear clear_nav_end"></div>
+
+</div>
+
+      </div>
+
+    </div>
+
+<style type="text/css">
+.search {
+    position: relative;
+    height: 30px;
+    text-align: right;
+    line-height: 30px;
+    padding-right: 10px;
+}
+
+.search .search-icon {
+    float: right;
+    height: 100%;
+    margin: 0 10px;
+    line-height: 30px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.search .search-input {
+    float: right;
+    width: 30%;
+    height: 30px;
+    line-height: 30px;
+    margin: 0;
+    border: 2px solid #ddd;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.search .search-clear {
+    display: none;
+}
+
+.search .search-results {
+    display: block;
+    z-index: 1000;
+    position: absolute;
+    top: 30px;
+    right: 50px;
+    width: 50%;
+    max-height: 400px;
+    overflow: auto;
+    text-align: left;
+    border-radius: 5px;
+    box-shadow: 0 .3rem .5rem #333;
+}
+
+.search .search-results .result-item {
+    color: #000;
+    margin: 5px;
+    padding: 3px;
+    border-radius: 3px;
+    cursor: pointer;
+}
+
+</style>
+
+    <div class="main" id="pjax-container">
+      <div class="main-inner">
+
+<div class="content">
+
+
+
+
+
+
+  <div class="post_list" >
+
+	
+<div class="post">
+  <div class="post_title weaklink">
+    <h2><a href="https://Dtheme.github.io/post/about" >关于</a>
+    </h2>
+  </div>
+  <div class="post_content markdown"><div class="p_part"><p></p></div></div>
+  <a class="pure-button" href="https://Dtheme.github.io/post/about">Read More >>> </a>
+  <div class="post_footer">
+    <div class="info weaklink"><i class="fa fa-clock-o"></i>
+<span class="date_info">2019-10-10</span>
+
+<i class="fa fa-bookmark-o"></i>
+	
+<span class="tags_info weaklink">
+	
+
+</span>
+
+<span>1 min read</span>
+
+
+    </div>
+
+  </div>
+
+</div>
+	
+	
+
+<div class="paginator pager pagination" >
+	
+  <div class="paginator_container pagination_container">
+	  
+	    								
+										
+	  
+
+
+    <div style="clear:both;height:0;"></div>
+
+
+  </div>
+
+</div>
+</div>
+  </div>
+</div>
+
+    </div>
+   <div class="footer">
+<div class="site_footer_wrap"><div class="site_footer">
+
+      <div class="mysocials"><div class="my_socials">
+		   
+			   
+    
+			   
+    
+			   
+    
+			   
+    
+			   
+    
+			   
+    
+</div>
+      </div>
+
+      <div class="copyright" id="copyright">
+	  <script>
+		var date=new Date;
+		var year=date.getFullYear(); 
+		document.getElementById("copyright").innerHTML = "Copyright © "+year+“ ” + 像物像欲又像疯;
+		</script>
+		Powered by Gridea.
+		<br>
+		本站已稳定运行了
+		<strong><script type="text/javascript">
+		var urodz= new Date("10/28/2018");
+		var now = new Date();
+		var ile = now.getTime() - urodz.getTime();
+		var dni = Math.floor(ile / (1000 * 60 * 60 * 24));
+		document.write(+dni)
+		</script>
+		</strong>天
+		<br>
+		本站总访问量为 <strong><span id="busuanzi_value_site_uv"></span></strong> 次
+	  Copyright © 2019 zw.Duan
+      </div>
+	  <img src="https://Dtheme.github.io/media/images/font.svg">
+
+    </div>
+
+<script type="text/javascript" src="https://Dtheme.github.io/media/scripts/love.js"></script>
+<script type="text/javascript" src="https://Dtheme.github.io/media/scripts/darkmode.js"></script>
+<script>
+var options = {
+  bottom: '64px', // default: '32px'
+  right: '32px', // default: '32px'
+  left: 'unset', // default: 'unset'
+  time: '0.5s', // default: '0.3s'
+  mixColor: '#fff', // default: '#fff'
+  backgroundColor: '#fff',  // default: '#fff'
+  buttonColorDark: '#100f2c',  // default: '#100f2c'
+  buttonColorLight: '#fff', // default: '#fff'
+  saveInCookies: false, // default: true,
+  label: '🌓', // default: ''
+  autoMatchOsTheme: true // default: true
+}
+
+const darkmode = new Darkmode(options);
+darkmode.showWidget();
+</script>
+<script>
+hljs.initHighlightingOnLoad();
+</script>
+
 </body>
+
 </html>
