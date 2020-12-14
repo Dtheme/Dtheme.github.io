@@ -368,15 +368,15 @@ RACSignal * signal = [RACSignal createSignal:^RACDisposable * _Nullable(id&lt;RA
 </blockquote>
 <pre><code class="language-swift"> //1、创建信号量
 RACSignal * signal = [RACSignal createSignal:^RACDisposable * _Nullable(id&lt;RACSubscriber&gt;  _Nonnull subscriber) {
-        NSLog(@&quot;创建信号量&quot;);
-        //3、发布信息
-        [subscriber sendNext:@&quot;I'm send next data&quot;];
-        self.subscriber = subscriber;
-        [subscriber sendNext:@&quot;I'm send next data&quot;];
-        NSLog(@&quot;RACSignal的block运行了&quot;);
-        return [RACDisposable disposableWithBlock:^{
-            NSLog(@&quot;RACDisposable的block运行了&quot;);
-        }];
+    NSLog(@&quot;创建信号量&quot;);
+    //3、发布信息
+    [subscriber sendNext:@&quot;I'm send next data&quot;];
+    self.subscriber = subscriber;
+    [subscriber sendNext:@&quot;I'm send next data&quot;];
+    NSLog(@&quot;RACSignal的block运行了&quot;);
+    return [RACDisposable disposableWithBlock:^{
+        NSLog(@&quot;RACDisposable的block运行了&quot;);
+    }];
 }];
     
 //2、订阅信号量
