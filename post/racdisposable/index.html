@@ -312,7 +312,7 @@ function change(){
 
 
 </span>
-<span>1 min read</span>
+<span>4 min read</span>
 &nbsp
 &nbsp
 <i class="fa fa-share"></i>
@@ -332,7 +332,110 @@ function change(){
   &nbsp
   <img id="mememe" src="//source.unsplash.com/800x400/?arts,weather">
     <div name="show" id="show">
-	<p class="md_block"><span class="md_line md_line_start md_line_end"><p>还记得<a href="https://dtheme.github.io/post/racsignal/">RACSignal</a>的时候我返回nil的那个东西吗，</p>
+	<p class="md_block"><span class="md_line md_line_start md_line_end"><p>还记得<a href="https://dtheme.github.io/post/racsignal/">RACSignal</a>的时候我返回nil的那个东西吗，今天来看一下这个<code>RACDisposable</code>对象是什么东西！！</p>
+<p>上次我们选择直接返回nil ，这次我来返回一个<code>RACDisposable</code>对象，进一步看看，先写段实例代码。</p>
+<pre><code class="language-swift"> //1、创建信号
+RACSignal * signal = [RACSignal createSignal:^RACDisposable * _Nullable(id&lt;RACSubscriber&gt;  _Nonnull subscriber) {
+    NSLog(@&quot;创建信号量&quot;)
+    //3、发布信息
+    [subscriber sendNext:@&quot;I'm send next data&quot;];
+    NSLog(@&quot;RACSignal的block运行了&quot;);
+    return [RACDisposable disposableWithBlock:^{
+    NSLog(@&quot;RACDisposable的block运行了&quot;);
+    }];
+}];
+
+//2、订阅信号
+[signal subscribeNext:^(id  _Nullable x) {
+    NSLog(@&quot;%@&quot;,x);
+}];
+</code></pre>
+<p>看一下内部做了什么事情，点进<code>disposableWithBlock</code>看看：</p>
+<pre><code class="language-swift">+ (instancetype)disposableWithBlock:(void (^)(void))block {
+    return [[self alloc] initWithBlock:block];
+}
+</code></pre>
+<p>这是一个<code>RACDisposable</code>的快速初始化方法，创建这个对象的时候保存了<code>block</code><br>
+<em>问题：这个block保存下来，是什么时候被调用的？</em><br>
+1.订阅者<code>subscriber</code>被销毁的时候。<br>
+2.<code>RACDisposable</code>主动调用<code>dispose</code>的时候<br>
+简单来说<code>RACDisposable</code>就是给我提供一个回调，让我可以在订阅者不再订阅的时候可以做一些后续事情，例如释放资源，或者后续业务逻辑。<br>
+开始拆解：</p>
+<blockquote>
+<p>###订阅者被销毁<br>
+在运行实例代码之后<code>RACDisposable</code>的block也确实被调用了，<br>
+可以看到正常情况下，由于订阅者没有强引用，会在用完之后被释放，那么如果我把订阅者强引用，不让他销毁，看会发生什么。来，修改一下上面的实例代码。</p>
+</blockquote>
+<pre><code class="language-swift"> //1、创建信号量
+RACSignal * signal = [RACSignal createSignal:^RACDisposable * _Nullable(id&lt;RACSubscriber&gt;  _Nonnull subscriber) {
+        NSLog(@&quot;创建信号量&quot;);
+        //3、发布信息
+        [subscriber sendNext:@&quot;I'm send next data&quot;];
+        self.subscriber = subscriber;
+        [subscriber sendNext:@&quot;I'm send next data&quot;];
+        NSLog(@&quot;RACSignal的block运行了&quot;);
+        return [RACDisposable disposableWithBlock:^{
+            NSLog(@&quot;RACDisposable的block运行了&quot;);
+        }];
+}];
+    
+//2、订阅信号量
+[signal subscribeNext:^(id  _Nullable x) {
+    NSLog(@&quot;%@&quot;,x);
+}];
+</code></pre>
+<p>这里我们创建了一个subscriber对象，<br>
+并且在发送数据之后就赋值了，从而达到不让subscriber被销毁，运行之后会发现<code>NSLog(@&quot;RACDisposable的block运行了&quot;);</code>不会执行，也就是说没有调用dispose的block了。<br>
+<em>问题：我知道了什么时候了，为什么？</em><br>
+于是我找到了<code>RAC</code>中的<code>NSObject+RACDeallocating</code>这个文件里面实现了2个分类</p>
+<ul>
+<li>NSObject (RACDeallocating)</li>
+<li>NSObject (RACDeallocatingDeprecated)<br>
+源码就贴出来了，它会在signal被销毁，或者废弃不再使用之后被释放。</li>
+</ul>
+<blockquote>
+<p>###主动调用dispose</p>
+</blockquote>
+<pre><code class="language-swift"> //1、创建信号量
+RACSignal * signal = [RACSignal createSignal:^RACDisposable * _Nullable(id&lt;RACSubscriber&gt;  _Nonnull subscriber) {
+        NSLog(@&quot;创建信号量&quot;);
+        //3、发布信息
+        [subscriber sendNext:@&quot;I'm send next data&quot;];
+        self.subscriber = subscriber;
+        [subscriber sendNext:@&quot;I'm send next data&quot;];
+        NSLog(@&quot;RACSignal的block运行了&quot;);
+        return [RACDisposable disposableWithBlock:^{
+            NSLog(@&quot;RACDisposable的block运行了&quot;);
+        }];
+    }];
+    
+    //2、订阅信号量
+    [signal subscribeNext:^(id  _Nullable x) {
+        NSLog(@&quot;%@&quot;,x);
+    }];
+    
+    //主动调用dispose
+    [disposable dispose];
+</code></pre>
+<p>在发送订阅的时候会给我们一个RACDisposable对象，<br>
+我们拿到它，然后调用 [disposable dispose];<br>
+运行一下，很容易验证结果。<br>
+看一下<code>dispose</code>做了什么：</p>
+<pre><code class="language-swift">- (void)dispose {
+    void (^disposeBlock)(void) = NULL;
+    while (YES) {
+        void *blockPtr = _disposeBlock;
+        if (OSAtomicCompareAndSwapPtrBarrier(blockPtr, NULL, &amp;_disposeBlock)) {
+            if (blockPtr != (__bridge void *)self) {
+                disposeBlock = CFBridgingRelease(blockPtr);
+            }
+            break;
+        }
+    }
+    if (disposeBlock != nil) disposeBlock();
+}
+</code></pre>
+<p>这个方法里面检查了一下是否有disposeBlock，如果有就释放掉。</p>
 </span></p></div>
 	<br>
 	<hr>
