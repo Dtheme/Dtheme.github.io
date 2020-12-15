@@ -346,7 +346,7 @@ RACSubject * subject = [RACSubject subject];
 </code></pre>
 <p>同样的，来拆解看看三部曲都是在做什么事情</p>
 <blockquote>
-<p>###发送信号</p>
+<h3 id="发送信号">发送信号</h3>
 </blockquote>
 <p>先点进<code>subject</code>看看</p>
 <pre><code class="language-swift">+ (instancetype)subject {
@@ -362,9 +362,9 @@ RACSubject * subject = [RACSubject subject];
 </code></pre>
 <p>可以看到subject是一个便捷构造方法，它的内部创建了一个_disposable取消信号，然后有一个订阅者数组<code>_subscribers</code>用来保存订阅者，留意到这个数据默认的capacity是1，所以我们可以理解为subject实际是将创建信号和对象管理（_disposable）封装起来的一个工具类。</p>
 <blockquote>
-<p>###订阅信号<br>
-看一下订阅的<code>subscribeNext</code></p>
+<h3 id="订阅信号">订阅信号</h3>
 </blockquote>
+<p>看一下订阅的<code>subscribeNext</code></p>
 <pre><code class="language-swift">- (RACDisposable *)subscribeNext:(void (^)(id x))nextBlock {
     NSCParameterAssert(nextBlock != NULL);
     RACSubscriber *o = [RACSubscriber subscriberWithNext:nextBlock error:NULL completed:NULL];
@@ -582,6 +582,8 @@ $("img").each( (i,o) => {
 <ul>
 <li>
 <ul>
+<li><a href="#%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7">发送信号</a></li>
+<li><a href="#%E8%AE%A2%E9%98%85%E4%BF%A1%E5%8F%B7">订阅信号</a></li>
 <li><a href="#%E6%9C%80%E5%90%8E-%E8%A1%A5%E5%85%85%E4%B8%80%E7%82%B9%E7%82%B9">最后 补充一点点</a></li>
 </ul>
 </li>
