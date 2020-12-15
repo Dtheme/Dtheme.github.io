@@ -397,12 +397,11 @@ RACSubject * subject = [RACSubject subject];
 1、创建subject的内部会创建一个数组_subscribers用来保存所有的订阅者<br>
 2、订阅信息的时候会创建订阅者，并且保存到数组中<br>
 3、遍历subject中_subscribers中的订阅者，依次发送信息</p>
+<p><strong>RACSubject还有2个子类：<code>RACReplaySubject</code>和<code>RACBehaviorSubject</code></strong></p>
 <blockquote>
-<h3 id="racreplaysubject和racbehaviorsubject"><code>RACReplaySubject</code>和<code>RACBehaviorSubject</code></h3>
+<h3 id="racreplaysubject">RACReplaySubject</h3>
 </blockquote>
-<p>RACSubject还有2个子类：<code>RACReplaySubject</code>和<code>RACBehaviorSubject</code><br>
-<strong>RACReplaySubject</strong><br>
-它里面有个<code>valuesReceived</code>变量，用来保存曾经发送过得消息值，每次订阅的时候会触发遍历</p>
+<p>它里面有个<code>valuesReceived</code>变量，用来保存曾经发送过得消息值，每次订阅的时候会触发遍历</p>
 <pre><code class="language-swift">for (id value in self.valuesReceived) {
     if (compoundDisposable.disposed) return;
         [subscriber sendNext:(value == RACTupleNil.tupleNil ? nil : value)];
@@ -437,8 +436,10 @@ RACReplaySubject *replaySubject = [RACReplaySubject subject];
     NSLog(@&quot;第二个订阅者接收到的数据%@&quot;,x);
 }];
 </code></pre>
-<p><strong>RACBehaviorSubject</strong><br>
-在订阅时会向订阅者发送最新的消息，RACReplaySubject在订阅之后可以重新发送之前的所有消息序列。<br>
+<blockquote>
+<h3 id="racbehaviorsubject">RACBehaviorSubject</h3>
+</blockquote>
+<p>在订阅时会向订阅者发送最新的消息，RACReplaySubject在订阅之后可以重新发送之前的所有消息序列。<br>
 它里面有个currentValue变量，每次执行sendNext的时候currentValue会被替换成当前的value，订阅的时候会执行<code>[subscriber sendNext:self.currentValue]</code>，所以当前订阅者会收到最近的一条消息，还有当前的消息。因为sendNext:(id)value方法执行了<code>[super sendNext:value]</code>，所以之前的订阅者也能收到当前消息。</p>
 <pre><code class="language-swift">// RACBehaviorSubject使用步骤:
 // 1.创建信号 [RACBehaviorSubject subject]，跟RACSiganl不一样，创建信号时没有block。
@@ -587,7 +588,8 @@ $("img").each( (i,o) => {
 <ul>
 <li><a href="#%E5%88%9B%E5%BB%BA%E8%AE%A2%E9%98%85%E4%BF%A1%E5%8F%B7">创建订阅信号</a></li>
 <li><a href="#%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7">发送信号</a></li>
-<li><a href="#racreplaysubject%E5%92%8Cracbehaviorsubject"><code>RACReplaySubject</code>和<code>RACBehaviorSubject</code></a></li>
+<li><a href="#racreplaysubject">RACReplaySubject</a></li>
+<li><a href="#racbehaviorsubject">RACBehaviorSubject</a></li>
 <li><a href="#%E6%9C%80%E5%90%8E-%E8%A1%A5%E5%85%85%E4%B8%80%E7%82%B9%E7%82%B9">最后 补充一点点</a></li>
 </ul>
 </li>
