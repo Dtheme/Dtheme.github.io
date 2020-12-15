@@ -334,6 +334,7 @@ function change(){
     <div name="show" id="show">
 	<p class="md_block"><span class="md_line md_line_start md_line_end"><p>前面我已经简单研究了<code>RACSignal</code>和<code>describer</code>的使用和基本的原理，它们可以搭配使用完成信号的生成、订阅和发送。（但RACSignal只能生成信号，没有发送信号的能力）。<br>
 <code>RACSubject</code>也可以完成消息的订阅发送，并且RACSubject可以独立实现信号的生成、订阅和发送。它是信号提供者，自己可以充当信号，又能发送信号。通常用来代替代理，有了它，就不必要定义代理了。<br>
+同样的，来拆解看看三部曲都是在做什么事情<br>
 先看示例代码</p>
 <pre><code class="language-swift">//1创建信号，
 RACSubject * subject = [RACSubject subject];    
@@ -344,9 +345,8 @@ RACSubject * subject = [RACSubject subject];
 //3发送数据
 [subject sendNext:@&quot;发送数据&quot;];
 </code></pre>
-<p>同样的，来拆解看看三部曲都是在做什么事情</p>
 <blockquote>
-<h3 id="发送信号">发送信号</h3>
+<h3 id="创建订阅信号">创建订阅信号</h3>
 </blockquote>
 <p>先点进<code>subject</code>看看</p>
 <pre><code class="language-swift">+ (instancetype)subject {
@@ -362,7 +362,7 @@ RACSubject * subject = [RACSubject subject];
 </code></pre>
 <p>可以看到subject是一个便捷构造方法，它的内部创建了一个_disposable取消信号，然后有一个订阅者数组<code>_subscribers</code>用来保存订阅者，留意到这个数据默认的capacity是1，所以我们可以理解为subject实际是将创建信号和对象管理（_disposable）封装起来的一个工具类。</p>
 <blockquote>
-<h3 id="订阅信号">订阅信号</h3>
+<h3 id="发送信号">发送信号</h3>
 </blockquote>
 <p>看一下订阅的<code>subscribeNext</code></p>
 <pre><code class="language-swift">- (RACDisposable *)subscribeNext:(void (^)(id x))nextBlock {
@@ -397,7 +397,10 @@ RACSubject * subject = [RACSubject subject];
 1、创建subject的内部会创建一个数组_subscribers用来保存所有的订阅者<br>
 2、订阅信息的时候会创建订阅者，并且保存到数组中<br>
 3、遍历subject中_subscribers中的订阅者，依次发送信息</p>
-<p>另外RACSubject还有2个子类：<code>RACReplaySubject</code>和<code>RACBehaviorSubject</code><br>
+<blockquote>
+<h3 id="racreplaysubject和racbehaviorsubject"><code>RACReplaySubject</code>和<code>RACBehaviorSubject</code></h3>
+</blockquote>
+<p>RACSubject还有2个子类：<code>RACReplaySubject</code>和<code>RACBehaviorSubject</code><br>
 <strong>RACReplaySubject</strong><br>
 它里面有个<code>valuesReceived</code>变量，用来保存曾经发送过得消息值，每次订阅的时候会触发遍历</p>
 <pre><code class="language-swift">for (id value in self.valuesReceived) {
@@ -582,8 +585,9 @@ $("img").each( (i,o) => {
 <ul>
 <li>
 <ul>
+<li><a href="#%E5%88%9B%E5%BB%BA%E8%AE%A2%E9%98%85%E4%BF%A1%E5%8F%B7">创建订阅信号</a></li>
 <li><a href="#%E5%8F%91%E9%80%81%E4%BF%A1%E5%8F%B7">发送信号</a></li>
-<li><a href="#%E8%AE%A2%E9%98%85%E4%BF%A1%E5%8F%B7">订阅信号</a></li>
+<li><a href="#racreplaysubject%E5%92%8Cracbehaviorsubject"><code>RACReplaySubject</code>和<code>RACBehaviorSubject</code></a></li>
 <li><a href="#%E6%9C%80%E5%90%8E-%E8%A1%A5%E5%85%85%E4%B8%80%E7%82%B9%E7%82%B9">最后 补充一点点</a></li>
 </ul>
 </li>
